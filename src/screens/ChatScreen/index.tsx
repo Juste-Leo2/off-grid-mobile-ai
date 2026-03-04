@@ -135,7 +135,10 @@ export const ChatScreen: React.FC = () => {
     />
   );
 
-  if (!chat.activeModelId || !chat.activeModel) {
+  const hasTextModel = !!(chat.activeModelId && chat.activeModel);
+  const hasImageModel = !!chat.activeImageModel;
+
+  if (!hasTextModel && !hasImageModel) {
     return (
       <>
         <NoModelScreen
@@ -282,7 +285,7 @@ const ChatMessageArea: React.FC<ChatMessageAreaProps> = ({
         contentContainerStyle={styles.messageList}
         onScroll={handleScroll}
         onContentSizeChange={(_w, _h) => { if (isNearBottomRef.current) flatListRef.current?.scrollToEnd({ animated: false }); }}
-        onLayout={() => {}}
+        onLayout={() => { }}
         scrollEventThrottle={16}
         keyboardDismissMode="on-drag"
         keyboardShouldPersistTaps="handled"
