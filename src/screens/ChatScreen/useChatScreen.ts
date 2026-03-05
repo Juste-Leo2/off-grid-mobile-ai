@@ -121,8 +121,7 @@ export const useChatScreen = () => {
     if (conversationId) { setActiveConversation(conversationId); }
     else if (activeModelId) { createConversation(activeModelId, undefined, projectId); }
     else if (activeImageModelId) { createConversation(activeImageModelId, undefined, projectId); }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [route.params?.conversationId, route.params?.projectId]);
+  }, [route.params?.conversationId, route.params?.projectId, activeModelId, activeImageModelId, createConversation, setActiveConversation]);
 
   useEffect(() => {
     if (generatingForConversationRef.current && generatingForConversationRef.current !== activeConversationId) {

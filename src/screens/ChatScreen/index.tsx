@@ -163,9 +163,9 @@ export const ChatScreen: React.FC = () => {
         <LoadingScreen
           styles={styles} colors={colors}
           navigation={chat.navigation}
-          loadingModelName={chat.loadingModel?.name || chat.activeModel.name}
+          loadingModelName={chat.loadingModel?.name || chat.activeModel?.name || ''}
           modelSize={sizeSource ? chat.hardwareService.formatModelSize(sizeSource) : ''}
-          hasVision={!!(chat.loadingModel?.mmProjPath || chat.activeModel.mmProjPath)}
+          hasVision={!!(chat.loadingModel?.mmProjPath || chat.activeModel?.mmProjPath)}
         />
         {alertEl}
       </>
