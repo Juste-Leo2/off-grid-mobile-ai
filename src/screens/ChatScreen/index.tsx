@@ -326,7 +326,7 @@ const ChatMessageArea: React.FC<ChatMessageAreaProps> = ({
       <ChatInput
         onSend={chat.handleSend}
         onStop={chat.handleStop}
-        disabled={!llmService.isModelLoaded()}
+        disabled={!llmService.isModelLoaded() && !chat.imageModelLoaded}
         isGenerating={chat.isStreaming || chat.isThinking}
         supportsVision={chat.supportsVision}
         conversationId={chat.activeConversationId}
@@ -335,7 +335,7 @@ const ChatMessageArea: React.FC<ChatMessageAreaProps> = ({
         queueCount={chat.queueCount}
         queuedTexts={chat.queuedTexts}
         onClearQueue={() => generationService.clearQueue()}
-        placeholder={getPlaceholderText(llmService.isModelLoaded(), chat.supportsVision)}
+        placeholder={getPlaceholderText(llmService.isModelLoaded() || chat.imageModelLoaded, chat.supportsVision)}
         onToolsPress={() => chat.setShowToolPicker(true)}
         enabledToolCount={chat.enabledTools.length}
         supportsToolCalling={chat.supportsToolCalling}

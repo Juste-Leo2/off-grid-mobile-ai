@@ -270,7 +270,8 @@ export async function handleSendFn(deps: GenerationDeps, call: SendCall): Promis
       messageText += `\n\n---\n📄 **Attached Document: ${fileName}**\n\`\`\`\n${doc.textContent}\n\`\`\`\n---`;
     }
   }
-  const shouldGenerateImage = imageMode !== 'disabled' && await shouldRouteToImageGenerationFn(deps, messageText, forceImageMode);
+  const isOnlyImageModelLoaded = !deps.activeModel && !!deps.activeImageModel;
+  const shouldGenerateImage = imageMode !== 'disabled' && (isOnlyImageModelLoaded || await shouldRouteToImageGenerationFn(deps, messageText, forceImageMode));
   if (shouldGenerateImage && deps.activeImageModel) {
     await handleImageGenerationFn(deps, { prompt: text, conversationId: targetConversationId });
     return;
