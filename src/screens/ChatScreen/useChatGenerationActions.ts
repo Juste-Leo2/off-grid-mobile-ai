@@ -300,8 +300,14 @@ export async function handleSendFn(deps: GenerationDeps, call: SendCall): Promis
 
 export async function handleStopFn(deps: Pick<GenerationDeps, 'isGeneratingImage' | 'generatingForConversationRef'>): Promise<void> {
   deps.generatingForConversationRef.current = null;
-  try { await Promise.all([generationService.stopGeneration().catch(() => { }), llmService.stopGeneration().catch(() => { })]); }
-  try { await generationService.stopGeneration().catch(() => { }); }
+  try {
+    await Promise.all([
+      generationService.stopGeneration().catch(() => { }),
+      llmService.stopGeneration().catch(() => { })
+    ]);
+  } catch (e) {
+    logger.error('Error stopping generation:', e);
+  }
   if (deps.isGeneratingImage) imageGenerationService.cancelGeneration().catch(() => { });
 }
 
