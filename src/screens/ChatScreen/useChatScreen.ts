@@ -121,7 +121,7 @@ export const useChatScreen = () => {
     const { conversationId, projectId } = route.params || {};
     if (conversationId) { setActiveConversation(conversationId); }
     else if (activeModelId) { createConversation(activeModelId, undefined, projectId); }
-    else if (activeImageModelId) { createConversation('', undefined, projectId); }
+    else if (activeImageModelId) { createConversation(null, undefined, projectId); }
   }, [route.params?.conversationId, route.params?.projectId, activeModelId, activeImageModelId, createConversation, setActiveConversation]);
 
   useEffect(() => {
